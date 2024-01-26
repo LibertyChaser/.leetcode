@@ -1,3 +1,8 @@
+# @before-stub-for-debug-begin
+from python3problem1 import *
+from typing import *
+# @before-stub-for-debug-end
+
 #
 # @lc app=leetcode id=1 lang=python3
 #
