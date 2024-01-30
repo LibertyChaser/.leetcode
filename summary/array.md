@@ -256,7 +256,7 @@ class Solution:
 
 最后找到 4，3 是最短距离。
 
-其实从动画中可以发现滑动窗口也可以理解为双指针法的一种！只不过这种解法更像是一个窗口的移动，所以叫做滑动窗口更适合一些。
+其实从动画中可以发现滑动窗口也可以理解为双指针法的一种！只不过这种解法更像是一个窗口的移动，所以叫做滑动窗口更适合一些。==窗口是左闭右闭的区间==
 
 在本题中实现滑动窗口，主要确定如下三点：
 
@@ -273,29 +273,87 @@ class Solution:
 
 ```py
 class Solution:
-    def minSubArrayLen(self, target: int, nums: List[int]) -> int:
+    def minSubArrayLen(self, target: int, nums: List[int]): # -> int:
         slow = 0
-        fast = 0
         size = len(nums)
         result = size + 1
-        cur_sum = 0
-        while (fast < size):
-            cur_sum += nums[fast] # 这个窗口内是一个左闭右闭的区间
-            while (cur_sum >= target): # 这里的while一定记住啊嗷嗷
-                result = min(result, fast - slow + 1) # 这里少不了+1 因为取件事左闭右闭
-                cur_sum -= nums[slow]
+        curr_sum = 0
+        for i in range(size):
+            curr_sum += nums[i]
+            while (curr_sum >= target):
+                result = min(result, i - slow + 1)
+                curr_sum -= nums[slow]
                 slow += 1
-            fast += 1
+                    
         return result if result != size + 1 else 0
 ```
 
+> [904. Fruit Into Baskets](https://leetcode.com/problems/fruit-into-baskets/)
+>
+> 本质还是滑动窗口 也是左闭右闭的区间
 
+```py
+class Solution:
+    def totalFruit(self, fruits: List[int]): # -> int:
+        slow = 0
+        result = 0
+        record = {}
+        size = len(fruits)
+        for i in range(size):
+            record[fruits[i]] = record.get(fruits[i], 0) + 1
+            while (len(record) > 2):
+                record[fruits[slow]] = record.get(fruits[slow], 0) - 1
+                if record[fruits[slow]] == 0:
+                    del record[fruits[slow]]
+                slow += 1
+
+            result = max(result, i - slow + 1)
+        return result
+```
 
 # Spiral Matrix
 
+这个就画图就可以了 一定清楚左闭右开的区间
 
+> [59. Spiral Matrix II](https://leetcode.com/problems/spiral-matrix-ii/)
+>
+> 有点儿像是削洋葱 一层又一层的
 
+```py
+class Solution:
+    def generateMatrix(self, n: int) -> List[List[int]]:
+        offset = 0
+        filling = 1
+        result = []
+        mid = n // 2
+        for i in range(n):
+            result.append([0] * n)
+        
+        while (offset <= mid):
+            
+            for i in range(offset, n - offset - 1):
+                result[offset][i] = filling
+                filling += 1
+            for i in range(offset, n - offset - 1):
+                result[i][n - offset - 1] = filling
+                filling += 1
+            for i in range(n - offset - 1, offset, -1):
+                result[n - offset - 1][i] = filling
+                filling += 1
+            for i in range(n - offset - 1, offset, -1):
+                result[i][offset] = filling
+                filling += 1
+            offset += 1
+        
+        if (n % 2 == 1):
+            result[mid][mid] = filling
+            
+        return result
+```
 
+> [54. Spiral Matrix](https://leetcode.com/problems/spiral-matrix/)
+>
+> 好难 没做出来 可能需要俩offset来记录
 
 
 
