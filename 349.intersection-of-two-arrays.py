@@ -6,7 +6,7 @@
 
 # @lc code=start
 class Solution:
-    def intersection(self, nums1: List[int], nums2: List[int]) -> List[int]:
+    def intersection(self, nums1: List[int], nums2: List[int]):
         # # using dictionary to record
         # record = {}
         # for i in nums1:
