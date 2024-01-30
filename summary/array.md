@@ -1,2 +1,3 @@
 array
 
+# Binary Search

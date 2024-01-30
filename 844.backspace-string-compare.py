@@ -13,17 +13,15 @@ from typing import *
 class Solution:
     def backspaceCompare(self, s: str, t: str) -> bool:
         def backspace(s):
-            slow = []
-            fast = 0
             size = len(s)
-            while (fast < size):
-                if (s[fast] != "#"):
-                    slow += [s[fast]]
+            result = []
+            for i in range(size):
+                if (s[i] != "#"):
+                    result.append(s[i])
                 else:
-                    slow = slow[:-1]
-                fast += 1
-            return slow
-        
+                    result = result[:-1]
+            return result
+
         return backspace(s) == backspace(t)
 # @lc code=end
 
