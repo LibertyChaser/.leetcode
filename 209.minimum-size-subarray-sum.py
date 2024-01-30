@@ -11,23 +11,18 @@ from typing import *
 
 # @lc code=start
 class Solution:
-    def minSubArrayLen(self, target: int, nums: List[int]) -> int:
+    def minSubArrayLen(self, target: int, nums: List[int]): # -> int:
         slow = 0
-        fast = 0
         size = len(nums)
-        if (sum(nums) < target):
-            return 0
-        result = len(nums) + 1
+        result = size + 1
         curr_sum = 0
-        while (fast < size):
-            curr_sum += nums[fast]
+        for i in range(size):
+            curr_sum += nums[i]
             while (curr_sum >= target):
-                result = min(result, fast - slow + 1)
+                result = min(result, i - slow + 1)
                 curr_sum -= nums[slow]
                 slow += 1
-                
-            fast += 1
                     
-        return result
+        return result if result != size + 1 else 0
 # @lc code=end
 
