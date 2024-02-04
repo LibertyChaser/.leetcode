@@ -6,3 +6,4 @@ class ListNode:
         self.val = val
         self.next = next
 ```
+

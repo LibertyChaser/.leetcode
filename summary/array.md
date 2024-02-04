@@ -1,5 +1,7 @@
 array
 
+[toc]
+
 python list常用方法
 
 ```python
@@ -63,7 +65,7 @@ class Solution:
         return -1
 ```
 
-2. **[left, right)**
+2. ==**[left, right)**==
 
 ```py
 class Solution:
@@ -212,7 +214,7 @@ class Solution:
 
 > [844. Backspace String Compare](https://leetcode.com/problems/backspace-string-compare/)
 >
-> 这里就要用到list来记录了 也没什么新意的题目
+> 可以用list来记录 也没什么新意的题目
 
 > [26. Remove Duplicates from Sorted Array](https://leetcode.com/problems/remove-duplicates-from-sorted-array/)
 >
@@ -257,6 +259,11 @@ class Solution:
 最后找到 4，3 是最短距离。
 
 其实从动画中可以发现滑动窗口也可以理解为双指针法的一种！只不过这种解法更像是一个窗口的移动，所以叫做滑动窗口更适合一些。==窗口是左闭右闭的区间==
+
+==把滑动窗口和指针分开的原因是== 
+
+1. 窗口内部的数据都需要进行考虑
+2. 指针的话 只用考虑指到的两个点即可
 
 在本题中实现滑动窗口，主要确定如下三点：
 
