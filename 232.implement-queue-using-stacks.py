@@ -18,15 +18,13 @@ class MyQueue:
     def pop(self): # -> int:
         if self.empty():
             return None
-        if self.stack_out:
-            return self.stack_out.pop()
-        else:
-            for i in range(self.stack_in):
+        if not self.stack_out:
+            for i in range(len(self.stack_in)):
                 self.stack_out.append(self.stack_in.pop())
-            return self.stack_out.pop()
+        return self.stack_out.pop()
 
     def peek(self): # -> int:
-        ans = self.stack_out.pop()
+        ans = self.pop()
         self.stack_out.append(ans)
         return ans
 
