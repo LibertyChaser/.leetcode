@@ -112,7 +112,7 @@ class MyStack:
 
 > [20. Valid Parentheses](https://leetcode.com/problems/valid-parentheses/)
 >
->  **括号匹配是使用栈解决的经典问题**
+>  **括号==匹配是使用栈解决的经典问题==**
 >
 > 出现左括号 就要把右括号放到栈里
 >
@@ -140,8 +140,71 @@ class Solution:
 
 
 
->  
+> [1047. Remove All Adjacent Duplicates In String](https://leetcode.com/problems/remove-all-adjacent-duplicates-in-string/) 
+>
+> 匹配问题
 >
 > ![](https://code-thinking.cdn.bcebos.com/gifs/1047.%E5%88%A0%E9%99%A4%E5%AD%97%E7%AC%A6%E4%B8%B2%E4%B8%AD%E7%9A%84%E6%89%80%E6%9C%89%E7%9B%B8%E9%82%BB%E9%87%8D%E5%A4%8D%E9%A1%B9.gif)
+
+```py
+class Solution:
+    def removeDuplicates(self, s: str) -> str:
+        res = list()
+        for item in s:
+            if res and res[-1] == item: # 这里的if res非常巧妙 先看是不是空的 再比较
+                res.pop()
+            else:
+                res.append(item)
+        return "".join(res)  # 字符串拼接
+```
+
+```py
+class Solution:
+    def removeDuplicates(self, s: str) -> str:
+        res = list(s)
+        slow = fast = 0
+        length = len(res)
+
+        while fast < length:
+          	# 这个题我没想到这种方法的原因是 我之前总是先判断再操作 但受限于可能所指的东西都是空的 而且条件其实也一直在变 也没法像27固定的判断那样直接移除元素
+            # 如果一样直接换，不一样会把后面的填在slow的位置
+            res[slow] = res[fast]
+            
+            # 如果发现和前一个一样，就退一格指针
+            if slow > 0 and res[slow] == res[slow - 1]:
+                slow -= 1
+            else:
+                slow += 1
+            fast += 1
+            
+        return ''.join(res[0: slow])
+```
+
+
+
+>  [150. Evaluate Reverse Polish Notation](https://leetcode.com/problems/evaluate-reverse-polish-notation/)
 >
+> ![](https://code-thinking.cdn.bcebos.com/gifs/150.%E9%80%86%E6%B3%A2%E5%85%B0%E8%A1%A8%E8%BE%BE%E5%BC%8F%E6%B1%82%E5%80%BC.gif)
+
+```python
+from operator import add, sub, mul # 这个引用非常好
+
+class Solution:
+    op_map = {'+': add, '-': sub, '*': mul, '/': lambda x, y: int(x / y)}
+    
+    def evalRPN(self, tokens: List[str]) -> int:
+        stack = []
+        for token in tokens:
+            if token not in {'+', '-', '*', '/'}:
+                stack.append(int(token))
+            else:
+                op2 = stack.pop()
+                op1 = stack.pop()
+                stack.append(self.op_map[token](op1, op2)) # 第一个出来的在运算符后面
+                # 这里直接用op_map来映射函数 省去了很多行代码
+        return stack.pop()
+```
+
+
+
 > 
